@@ -7,11 +7,11 @@ import (
 	"github.com/algorand/go-algorand-sdk/v2/encoding/msgpack"
 	sdk "github.com/algorand/go-algorand-sdk/v2/types"
 	itypes "github.com/algorand/indexer/v3/types"
+	"github.com/shiqizng/cockroachdb-exporter/plugin/exporter/idb/cockroach/internal/types"
 	"github.com/stretchr/testify/assert"
 	"github.com/stretchr/testify/require"
 
-	"github.com/algorand/indexer/v3/idb"
-	"github.com/algorand/indexer/v3/idb/postgres/internal/types"
+	"github.com/shiqizng/cockroachdb-exporter/plugin/exporter/idb"
 )
 
 func TestEncodeSignedTxnWithAD(t *testing.T) {

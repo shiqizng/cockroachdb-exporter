@@ -7,11 +7,10 @@ import (
 	"github.com/jackc/pgconn"
 	"github.com/jackc/pgerrcode"
 	"github.com/jackc/pgx/v4"
+	pgtest "github.com/shiqizng/cockroachdb-exporter/plugin/exporter/idb/cockroach/internal/testing"
+	"github.com/shiqizng/cockroachdb-exporter/plugin/exporter/idb/cockroach/internal/util"
 	"github.com/stretchr/testify/assert"
 	"github.com/stretchr/testify/require"
-
-	pgtest "github.com/algorand/indexer/v3/idb/postgres/internal/testing"
-	"github.com/algorand/indexer/v3/idb/postgres/internal/util"
 )
 
 func TestTxWithRetry(t *testing.T) {

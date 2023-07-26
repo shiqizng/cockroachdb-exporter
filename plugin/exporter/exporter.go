@@ -6,8 +6,8 @@ import (
 	"errors"
 	"fmt"
 
-	"github.com/algorand/conduit-plugin-template/plugin/exporter/idb"
 	sdk "github.com/algorand/go-algorand-sdk/v2/types"
+	"github.com/shiqizng/cockroachdb-exporter/plugin/exporter/idb"
 	"github.com/sirupsen/logrus"
 	"gopkg.in/yaml.v2"
 

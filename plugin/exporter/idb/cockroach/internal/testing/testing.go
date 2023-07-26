@@ -10,9 +10,8 @@ import (
 	"github.com/jackc/pgx/v4/pgxpool"
 	"github.com/orlangure/gnomock"
 	"github.com/orlangure/gnomock/preset/postgres"
+	"github.com/shiqizng/cockroachdb-exporter/plugin/exporter/idb/cockroach/internal/schema"
 	"github.com/stretchr/testify/require"
-
-	"github.com/algorand/indexer/v3/idb/postgres/internal/schema"
 )
 
 var testpg string
@@ -78,7 +77,7 @@ func SetupPostgres(t *testing.T) (*pgxpool.Pool, string, func()) {
 func SetupPostgresWithSchema(t *testing.T) (*pgxpool.Pool, string, func()) {
 	db, connStr, shutdownFunc := SetupPostgres(t)
 
-	_, err := db.Exec(context.Background(), schema.SetupPostgresSql)
+	_, err := db.Exec(context.Background(), schema.SetupCockroachSql)
 	require.NoError(t, err)
 
 	return db, connStr, shutdownFunc

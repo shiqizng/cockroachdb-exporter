@@ -5,10 +5,10 @@ import (
 	"fmt"
 
 	"github.com/jackc/pgx/v4"
+	"github.com/shiqizng/cockroachdb-exporter/plugin/exporter/idb"
 
-	"github.com/algorand/indexer/v3/idb"
-	"github.com/algorand/indexer/v3/idb/postgres/internal/encoding"
 	"github.com/algorand/indexer/v3/util"
+	"github.com/shiqizng/cockroachdb-exporter/plugin/exporter/idb/cockroach/internal/encoding"
 
 	"github.com/algorand/go-algorand-sdk/v2/crypto"
 	"github.com/algorand/go-algorand-sdk/v2/types"

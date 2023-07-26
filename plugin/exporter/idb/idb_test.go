@@ -6,14 +6,15 @@ import (
 	"github.com/stretchr/testify/assert"
 	"github.com/stretchr/testify/require"
 
-	sdk "github.com/algorand/go-algorand-sdk/types"
+	sdk "github.com/algorand/go-algorand-sdk/v2/types"
 	"github.com/algorand/indexer/idb"
 	"github.com/algorand/indexer/util/test"
 )
 
 func TestTxnRowNext(t *testing.T) {
-	// txn with 2 inner transactions and 2 nested inner transactions
-	stxn := test.MakeAppCallWithInnerTxnV2(sdk.Address(test.AccountA), sdk.Address(test.AccountB), sdk.Address(test.AccountC), sdk.Address(test.AccountD), sdk.Address(test.AccountE))
+	// txn with 2 inner tq
+	//ransactions and 2 nested inner transactions
+	stxn := test.MakeAppCallWithInnerTxn(sdk.Address(test.AccountA), sdk.Address(test.AccountB), sdk.Address(test.AccountC), sdk.Address(test.AccountD), sdk.Address(test.AccountE))
 
 	testcases := []struct {
 		name string

@@ -1,9 +1,8 @@
 package cockroach
 
 import (
+	"github.com/shiqizng/cockroachdb-exporter/plugin/exporter/idb"
 	log "github.com/sirupsen/logrus"
-
-	"github.com/algorand/indexer/idb"
 )
 
 type cockroachFactory struct {
