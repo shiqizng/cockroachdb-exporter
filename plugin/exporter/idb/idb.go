@@ -150,9 +150,6 @@ var ErrorNotInitialized error = errors.New("accounting not initialized")
 // ErrorBlockNotFound is used when requesting a block that isn't in the DB.
 var ErrorBlockNotFound = errors.New("block not found")
 
-// IndexerDb is the interface used to define alternative Indexer backends.
-// TODO: sqlite3 impl
-// TODO: cockroachdb impl
 type IndexerDb interface {
 	// Close all connections to the database. Should be called when IndexerDb is
 	// no longer needed.
@@ -165,25 +162,9 @@ type IndexerDb interface {
 
 	// GetNextRoundToAccount returns ErrorNotInitialized if genesis is not loaded.
 	GetNextRoundToAccount() (uint64, error)
-	GetSpecialAccounts(ctx context.Context) (types.SpecialAddresses, error)
 	GetNetworkState() (NetworkState, error)
 	SetNetworkState(genesis sdk.Digest) error
-
-	GetBlock(ctx context.Context, round uint64, options GetBlockOptions) (blockHeader sdk.BlockHeader, transactions []TxnRow, err error)
-
-	// The next multiple functions return a channel with results as well as the latest round
-	// accounted.
-	Transactions(ctx context.Context, tf TransactionFilter) (<-chan TxnRow, uint64)
-	GetAccounts(ctx context.Context, opts AccountQueryOptions) (<-chan AccountRow, uint64)
-	Assets(ctx context.Context, filter AssetsQuery) (<-chan AssetRow, uint64)
-	AssetBalances(ctx context.Context, abq AssetBalanceQuery) (<-chan AssetBalanceRow, uint64)
-	Applications(ctx context.Context, filter ApplicationQuery) (<-chan ApplicationRow, uint64)
-	AppLocalState(ctx context.Context, filter ApplicationQuery) (<-chan AppLocalStateRow, uint64)
-	ApplicationBoxes(ctx context.Context, filter ApplicationBoxQuery) (<-chan ApplicationBoxRow, uint64)
-
 	Health(ctx context.Context) (status Health, err error)
-
-	DeleteTransactions(ctx context.Context, keep uint64) error
 }
 
 // GetBlockOptions contains the options when requesting to load a block from the database.
