@@ -30,8 +30,8 @@ docker-node: docker-stop
   -e ADMIN_TOKEN=aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa \
   -e TOKEN=aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa \
   -e PROFILE=conduit \
-  -e NETWORK=mainnet \
-  algorand/algod:beta
+  -e NETWORK=testnet \
+  algorand/algod:stable
 
 docker-status:
 		curl -qs -H "Authorization: Bearer aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa" "localhost:4190/v2/status?pretty"

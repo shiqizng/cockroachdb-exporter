@@ -6,15 +6,17 @@ import (
 	"errors"
 	"fmt"
 
-	sdk "github.com/algorand/go-algorand-sdk/v2/types"
-	"github.com/algorand/indexer/v3/types"
-	"github.com/shiqizng/cockroachdb-exporter/plugin/exporter/idb"
 	"github.com/sirupsen/logrus"
 	"gopkg.in/yaml.v2"
+
+	"github.com/shiqizng/cockroachdb-exporter/plugin/exporter/idb"
+	_ "github.com/shiqizng/cockroachdb-exporter/plugin/exporter/idb/cockroach"
 
 	"github.com/algorand/conduit/conduit/data"
 	"github.com/algorand/conduit/conduit/plugins"
 	"github.com/algorand/conduit/conduit/plugins/exporters"
+	sdk "github.com/algorand/go-algorand-sdk/v2/types"
+	"github.com/algorand/indexer/v3/types"
 )
 
 //go:embed sample.yaml

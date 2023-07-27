@@ -10,8 +10,6 @@ import (
 	_ "github.com/algorand/conduit/conduit/plugins/processors/all"
 
 	_ "github.com/shiqizng/cockroachdb-exporter/plugin/exporter"
-	_ "github.com/shiqizng/cockroachdb-exporter/plugin/importer"
-	_ "github.com/shiqizng/cockroachdb-exporter/plugin/processor"
 
 	"github.com/algorand/conduit/pkg/cli"
 )
