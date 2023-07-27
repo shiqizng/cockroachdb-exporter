@@ -44,16 +44,16 @@ var statements = map[string]string{
 		schema.SpecialAccountsMetastateKey +
 		`', $1) ON CONFLICT (k) DO UPDATE SET v = EXCLUDED.v`,
 	upsertAssetStmtName: `INSERT INTO asset
-		(index, creator_addr, params, deleted, created_at)
-		VALUES($1, $2, $3, FALSE, $4) ON CONFLICT (index) DO UPDATE SET
+		(id, creator_addr, params, deleted, created_at)
+		VALUES($1, $2, $3, FALSE, $4) ON CONFLICT (id) DO UPDATE SET
 		creator_addr = EXCLUDED.creator_addr, params = EXCLUDED.params, deleted = FALSE`,
 	upsertAccountAssetStmtName: `INSERT INTO account_asset
 		(addr, assetid, amount, frozen, deleted, created_at)
 		VALUES($1, $2, $3, $4, FALSE, $5) ON CONFLICT (addr, assetid) DO UPDATE SET
 		amount = EXCLUDED.amount, frozen = EXCLUDED.frozen, deleted = FALSE`,
 	upsertAppStmtName: `INSERT INTO app
-		(index, creator, params, deleted, created_at)
-		VALUES($1, $2, $3, FALSE, $4) ON CONFLICT (index) DO UPDATE SET
+		(id, creator, params, deleted, created_at)
+		VALUES($1, $2, $3, FALSE, $4) ON CONFLICT (id) DO UPDATE SET
 		creator = EXCLUDED.creator, params = EXCLUDED.params, deleted = FALSE`,
 	upsertAccountAppStmtName: `INSERT INTO account_app
 		(addr, app, localstate, deleted, created_at)
@@ -88,8 +88,8 @@ var statements = map[string]string{
 		rewards_total = EXCLUDED.rewards_total, deleted = FALSE, keytype = EXCLUDED.keytype,
 		account_data = EXCLUDED.account_data`,
 	deleteAssetStmtName: `INSERT INTO asset
-		(index, creator_addr, params, deleted, created_at, closed_at)
-		VALUES($1, $2, 'null'::jsonb, TRUE, $3, $3) ON CONFLICT (index) DO UPDATE SET
+		(id, creator_addr, params, deleted, created_at, closed_at)
+		VALUES($1, $2, 'null'::jsonb, TRUE, $3, $3) ON CONFLICT (id) DO UPDATE SET
 		creator_addr = EXCLUDED.creator_addr, params = EXCLUDED.params, deleted = TRUE,
 		closed_at = EXCLUDED.closed_at`,
 	deleteAccountAssetStmtName: `INSERT INTO account_asset
@@ -97,8 +97,8 @@ var statements = map[string]string{
 		VALUES($1, $2, 0, false, TRUE, $3, $3) ON CONFLICT (addr, assetid) DO UPDATE SET
 		amount = EXCLUDED.amount, deleted = TRUE, closed_at = EXCLUDED.closed_at`,
 	deleteAppStmtName: `INSERT INTO app
-		(index, creator, params, deleted, created_at, closed_at)
-		VALUES($1, $2, 'null'::jsonb, TRUE, $3, $3) ON CONFLICT (index) DO UPDATE SET
+		(id, creator, params, deleted, created_at, closed_at)
+		VALUES($1, $2, 'null'::jsonb, TRUE, $3, $3) ON CONFLICT (id) DO UPDATE SET
 		creator = EXCLUDED.creator, params = EXCLUDED.params, deleted = TRUE,
 		closed_at = EXCLUDED.closed_at`,
 	deleteAccountAppStmtName: `INSERT INTO account_app

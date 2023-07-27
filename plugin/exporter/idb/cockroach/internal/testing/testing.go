@@ -9,7 +9,7 @@ import (
 
 	"github.com/jackc/pgx/v4/pgxpool"
 	"github.com/orlangure/gnomock"
-	"github.com/orlangure/gnomock/preset/postgres"
+	"github.com/orlangure/gnomock/preset/cockroachdb"
 	"github.com/shiqizng/cockroachdb-exporter/plugin/exporter/idb/cockroach/internal/schema"
 	"github.com/stretchr/testify/require"
 )
@@ -25,43 +25,23 @@ func init() {
 	}
 }
 
-// SetupPostgres starts a gnomock postgres DB then returns the database object,
+// SetupDatabase starts a gnomock postgres DB then returns the database object,
 // the connection string and a shutdown function.
-func SetupPostgres(t *testing.T) (*pgxpool.Pool, string, func()) {
-	if testpg != "" {
-		// use non-docker Postgresql
-		connStr := testpg
-
-		db, err := pgxpool.Connect(context.Background(), connStr)
-		require.NoError(t, err, "Error opening postgres connection")
-
-		_, err = db.Exec(
-			context.Background(), `DROP SCHEMA public CASCADE; CREATE SCHEMA public;`)
-		require.NoError(t, err)
-
-		shutdownFunc := func() {
-			db.Close()
-		}
-
-		return db, connStr, shutdownFunc
-	}
-
-	p := postgres.Preset(
-		postgres.WithVersion("13-alpine"),
-		postgres.WithUser("gnomock", "gnomick"),
-		postgres.WithDatabase("mydb"),
+func SetupDatabase(t *testing.T) (*pgxpool.Pool, string, func()) {
+	p := cockroachdb.Preset(
+		cockroachdb.WithVersion("v22.2.12"),
+		cockroachdb.WithDatabase("mydb"),
 	)
 	container, err := gnomock.Start(p)
 	require.NoError(t, err, "Error starting gnomock")
 
 	connStr := fmt.Sprintf(
-		"host=%s port=%d user=%s password=%s  dbname=%s sslmode=disable",
-		container.Host, container.DefaultPort(),
-		"gnomock", "gnomick", "mydb",
+		"host=%s port=%d user=root dbname=%s sslmode=disable",
+		container.Host, container.DefaultPort(), "mydb",
 	)
 
 	db, err := pgxpool.Connect(context.Background(), connStr)
-	require.NoError(t, err, "Error opening postgres connection")
+	require.NoError(t, err, "Error opening database connection")
 
 	shutdownFunc := func() {
 		db.Close()
@@ -72,10 +52,10 @@ func SetupPostgres(t *testing.T) (*pgxpool.Pool, string, func()) {
 	return db, connStr, shutdownFunc
 }
 
-// SetupPostgresWithSchema is equivalent to SetupPostgres() but also creates the
+// SetupPostgresWithSchema is equivalent to SetupDatabase() but also creates the
 // indexer schema.
 func SetupPostgresWithSchema(t *testing.T) (*pgxpool.Pool, string, func()) {
-	db, connStr, shutdownFunc := SetupPostgres(t)
+	db, connStr, shutdownFunc := SetupDatabase(t)
 
 	_, err := db.Exec(context.Background(), schema.SetupCockroachSql)
 	require.NoError(t, err)

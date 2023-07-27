@@ -5,7 +5,8 @@ import (
 	"testing"
 
 	sdk "github.com/algorand/go-algorand-sdk/v2/types"
-	_ "github.com/algorand/indexer/idb/dummy"
+	_ "github.com/shiqizng/cockroachdb-exporter/plugin/exporter/idb/cockroach"
+	_ "github.com/shiqizng/cockroachdb-exporter/plugin/exporter/idb/dummy"
 	"github.com/sirupsen/logrus"
 	"github.com/sirupsen/logrus/hooks/test"
 	"github.com/stretchr/testify/assert"
@@ -50,7 +51,7 @@ func TestConnectUnmarshalFailure(t *testing.T) {
 func TestConnectDbFailure(t *testing.T) {
 	exporter := cockroachConstructor.New()
 	cfg := plugins.MakePluginConfig("")
-	assert.ErrorContains(t, exporter.Init(context.Background(), conduit.MakePipelineInitProvider(&round, nil), cfg, logger), "connection string is empty for postgres")
+	assert.ErrorContains(t, exporter.Init(context.Background(), conduit.MakePipelineInitProvider(&round, nil), cfg, logger), "connection string is empty for cockroachdb")
 }
 
 func TestReceiveInvalidBlock(t *testing.T) {

@@ -7,7 +7,7 @@ import (
 	"github.com/jackc/pgconn"
 	"github.com/jackc/pgerrcode"
 	"github.com/jackc/pgx/v4"
-	pgtest "github.com/shiqizng/cockroachdb-exporter/plugin/exporter/idb/cockroach/internal/testing"
+	test "github.com/shiqizng/cockroachdb-exporter/plugin/exporter/idb/cockroach/internal/testing"
 	"github.com/shiqizng/cockroachdb-exporter/plugin/exporter/idb/cockroach/internal/util"
 	"github.com/stretchr/testify/assert"
 	"github.com/stretchr/testify/require"
@@ -28,7 +28,7 @@ func TestTxWithRetry(t *testing.T) {
 		return fmt.Errorf("database error: %w", &pgerr)
 	}
 
-	db, _, shutdownFunc := pgtest.SetupPostgres(t)
+	db, _, shutdownFunc := test.SetupDatabase(t)
 	defer shutdownFunc()
 
 	err := util.TxWithRetry(db, pgx.TxOptions{}, f, nil)

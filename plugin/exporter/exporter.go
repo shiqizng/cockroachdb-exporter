@@ -80,6 +80,13 @@ func createIndexerDB(logger *logrus.Logger, readonly bool, cfg plugins.PluginCon
 		dbName = "dummy"
 	}
 
+	// for some reason when ConnectionString is empty, it's automatically
+	// connecting to a local instance that's running.
+	// this behavior can be reproduced in TestConnectDbFailure.
+	if !eCfg.Test && eCfg.ConnectionString == "" {
+		return nil, nil, fmt.Errorf("connection string is empty for %s", dbName)
+	}
+
 	var opts idb.IndexerDbOptions
 	opts.ReadOnly = readonly
 
