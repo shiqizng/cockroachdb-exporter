@@ -29,7 +29,7 @@ if [ -d $DATA_DIR ]; then
   echo "${bold_red}Using existing configuration file: ${bold_blue}$CONFIG_FILE${reset}"
 else
   mkdir $DATA_DIR
-  $CONDUIT init --importer algod --processors processor_template --exporter exporter_template > $CONFIG_FILE
+  $CONDUIT init --importer algod --exporter postgresql > $CONFIG_FILE
 
   # 1. Enable metrics.
   # 2. Set algod address.

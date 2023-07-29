@@ -9,7 +9,7 @@ services:
     ports:
       - "26257:26257"
       - "8080:8080"
-    command: "start-single-node --insecure && ./cockroach sql --execute=CREATE DATABASE indexer; --insecure"
+    command: "start-single-node --insecure && ./cockroach sql --execute=\"CREATE DATABASE indexer;\" --insecure"
   algod:
     image: algorand/algod:stable
     container_name: algod-testnet
@@ -30,6 +30,7 @@ services:
     volumes:
       - './run_data:/data'
     network_mode: "host"
+    restart: on-failure:3
 volumes:
   roach1:
     external: false
