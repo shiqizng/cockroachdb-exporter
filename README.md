@@ -1,2 +1,12 @@
 # CockroachDB Exporter
-A CockroachDB exporter plugin for Conduit. For demo purposes only.
+A CockroachDB exporter plugin for Conduit.
+
+# Quickstart
+```yaml
+make demo
+```
+
+#### Run Indexer API 
+```yaml
+make indexerapi
+```

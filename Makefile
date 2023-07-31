@@ -41,4 +41,8 @@ docker-stop:
 	docker rm conduit-template-follower > /dev/null 2>&1 || true
 
 demo:
-	cd build/demo && vhs < demo.tape
+	docker-compose up --build
+
+indexerapi:
+	cd indexer && ./algorand-indexer daemon -P "host=localhost port=26257 user=root dbname=indexer"
+
