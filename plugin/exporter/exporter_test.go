@@ -84,7 +84,7 @@ func TestReceiveAddBlockSuccess(t *testing.T) {
 	assert.NoError(t, exporter.Receive(block))
 }
 
-func TestPostgresqlExporterInit(t *testing.T) {
+func TestCockroachDBExporterInit(t *testing.T) {
 	exporter := cockroachConstructor.New()
 	cfg := plugins.MakePluginConfig("test: true")
 

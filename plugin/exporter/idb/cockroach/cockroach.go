@@ -52,7 +52,6 @@ func Init(connection string, opts idb.IndexerDbOptions, log *log.Logger) (*Index
 		return nil, nil, fmt.Errorf("couldn't parse config: %v", err)
 	}
 	conn, err := pgxpool.ConnectConfig(context.Background(), postgresConfig)
-	//defer conn.Close(context.Background())
 	if err != nil {
 		log.Fatal("failed to connect database", err)
 	}

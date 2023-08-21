@@ -43,6 +43,7 @@ docker-stop:
 demo:
 	docker-compose up --build
 
+# assuming you have an indexer binary in indexer/
 indexerapi:
 	cd indexer && ./algorand-indexer daemon -P "host=localhost port=26257 user=root dbname=indexer"
 

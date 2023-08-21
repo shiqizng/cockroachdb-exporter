@@ -3,4 +3,4 @@
 dist/
 /cmd/conduit/conduit
 run_data/metadata.json
-/indexer/algorand-indexer
+indexer/algorand-indexer
